@@ -1,0 +1,24 @@
+def solution(id_list,report,k):
+
+    #1.누가 신고를 당했는지에 대한 정리
+    answer = []
+    report = list(set(report))
+
+    report_user = {}
+    for string in report:
+        user, target = string.split()
+        if target not in report_user.keys():
+            report_user[target] = [user]
+        else:
+            report_user[target].append(user)
+
+    #2.신고를 당한 횟수가 k를 초과하는지 확인
+    result = [0] * len(id_list)
+
+
+    for target in id_list:
+        if target in report_user.keys() and len (report_user[target]) >= k :
+            for user in report_user[target]:
+
+                result[id_list.index(user)] += 1
+    return result
